@@ -1,7 +1,4 @@
 #pragma once
-#include "pch.h"
-#include "ISceneManagementInterface.h"
-#include "pm.h"
 #include "unity.h"
 
 /**********************************************************************
