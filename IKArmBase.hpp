@@ -45,7 +45,6 @@ struct IKArmBase
 		vec3 basepos = r.position();
 		PM::plane_t p = PM::plane_t(basepos, rotax);
 
-		//normal is cross product of Arm.transform.up and Arm.transform.right
 		vec3 TargetToOrigin = ArmTarget.transform().position() - basepos;
 		float NormalDistance = Mathf::Dot(TargetToOrigin, p.n);
 		vec3 ProjectedPoint = ArmTarget.transform().position() - (p.n * NormalDistance);
@@ -59,26 +58,18 @@ struct IKArmBase
 	{	
 		Unity::Transform r = ArmsList[x].ArmBase.transform();
 		vec3 rotax = ArmsList[x].ArmBase.transform().rotation() * ArmsList[x].ArmBase.scenenode->rotdir;
-		//Get the aim position for the next frame
+	
 		vec3 ProjectedPoint = ProjectOntoPlane(ArmsList[x].ArmObject, ArmsList[x].ArmBase,
 				rotax,
 				TargetObject);
 		
-		//Rotate to the aim position
 		float SignAngle = Mathf::SignedAngle(
 			r.rotation() * ArmsList[x].ArmBase.scenenode->pointdir, 
 			ProjectedPoint - r.position(), 
 			rotax);
 
-		//if (x == 3)
-		{
-			//PRINTVEC3(ProjectedPoint);
-			//PRINT(x << " SignAngle=" << SignAngle);
-			//PRINT("PointAt " << x << " SignAngle = " << SignAngle * 180 / PI);
-		}
 		SignAngle = Mathf::Clamp(SignAngle, -RotationClamp, RotationClamp);
 
-		//Restrict the rotation to the RotationMax value
 		float CurrentAngle;
 		float FutureAngle;
 		if (x == 0)
@@ -216,10 +207,8 @@ struct IKArmBase
 	{
 		for (int i = 0; i < ArmsList.size(); i++)
 		{
-			//ArmData value used to shorten code
 			ArmStruct ArmData = ArmsList[i];
 
-			//move back to sockets without rotation
 			vec3 position = ArmData.ArmObject.transform().position() 
 							- ArmData.ArmBase.transform().position() + ArmData.ArmSocket.transform().position();
 			
@@ -398,14 +387,14 @@ struct IKArmBase
 
 			ArmsList.push_back(as);
 		}
-		//Set values for other objects in struct array
+
 		for (int x = 0; x < ArmsList.size(); x++)
 		{
-			if (x == 0)  //if the first arm in the array, set the base object as the socket.            
+			if (x == 0)
 			{
 				ArmsList[x].ArmSocket = BaseObject;
 			}
-			else //For other arms, set the socket to the previous base
+			else 
 			{
 				ArmsList[x].ArmSocket = ArmsList[x - 1].ArmEnd;
 			}
