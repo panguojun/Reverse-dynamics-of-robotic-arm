@@ -14,28 +14,28 @@ using namespace PM;
 using namespace Unity;
 struct IKArmBase
 {
-	float RotationClamp = 2.5 / 180. * PI;	// 最大旋转步长
-	float TranslationClamp = 0.01 * SCALE;	// 最大平移步长
+	float RotationClamp = 2.5 / 180. * PI;		// 最大旋转步长
+	float TranslationClamp = 0.01 * SCALE;		// 最大平移步长
 
-	struct ArmStruct						// 机械臂单元
+	struct ArmStruct				// 机械臂单元
 	{
-		GameObject ArmParent;				// 机械臂单元根物
-		GameObject ArmObject;				// 机械臂单元物体
-		GameObject ArmBase;					// 机械臂单元基物体
-		GameObject ArmEnd;					// 机械臂单元末端物体
-		GameObject ArmSocket;				// 机械臂单元连接（上一个机械臂单元的ArmEnd)
+		GameObject ArmParent;			// 机械臂单元根物
+		GameObject ArmObject;			// 机械臂单元物体
+		GameObject ArmBase;			// 机械臂单元基物体
+		GameObject ArmEnd;			// 机械臂单元末端物体
+		GameObject ArmSocket;			// 机械臂单元连接（上一个机械臂单元的ArmEnd)
 
-		float RotationMin = 0;					// 旋转最小角度
+		float RotationMin = 0;			// 旋转最小角度
 		float RotationMax = 110. / 180. * PI;	// 旋转最大角度
-		float MinLength = 0, MaxLength = 1;		// 平移最大最小长度
+		float MinLength = 0, MaxLength = 1;	// 平移最大最小长度
 	};
-	std::vector<ArmStruct> ArmsList;			// 机械臂单元列表
+	std::vector<ArmStruct> ArmsList;		// 机械臂单元列表
 	std::vector<Unity::SceneNode*> nodelist;	// 机械臂单元节点列表
 
-	GameObject Target;						// 目标点物体
-	Unity::SceneNode targetnd;				// 目标节点
-	GameObject BaseObject;					// 机械臂的基座物体对应根节点
-	Unity::SceneNode root;					// 根节点
+	GameObject Target;				// 目标点物体
+	Unity::SceneNode targetnd;			// 目标节点
+	GameObject BaseObject;				// 机械臂的基座物体对应根节点
+	Unity::SceneNode root;				// 根节点
 
 	// --------------------------------------------------------
 	// 计算垂直于旋转轴的平面上投影点
